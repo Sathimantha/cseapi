@@ -1,6 +1,5 @@
 import requests
 import json
-import csv
 
 url = "https://www.cse.lk/api/financials"
 
@@ -11,29 +10,16 @@ headers = {
 
 response = requests.request("POST", url, headers=headers, data=payload)
 
-#print(response.text)
-
-
 data = json.loads(response.text)
-infoAnnualData = data['infoAnnualData']
-infoQuarterlyData= data['infoQuarterlyData']
 
-data_file = open('data_file.csv', 'w')
-csv_writer = csv.writer(data_file)
+infoAnnualData = data['infoAnnualData']
 
 count = 0
- 
 for i in infoAnnualData:
-    if count == 0:
- 
-        # Writing headers of CSV file
-        header = i.keys()
-        csv_writer.writerow(header)
-        count += 1
- 
-    # Writing data of CSV file
-    csv_writer.writerow(i.values())
+    print(i.values())
 
 
- 
-data_file.close()
+# with open('data.txt', 'w') as f:
+#    f.write(json.dumps(data['infoAnnualData'][1]['path'], indent=4, sort_keys=True))
+
+# print(data['infoAnnualData'])
